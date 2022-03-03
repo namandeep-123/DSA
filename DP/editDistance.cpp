@@ -3,7 +3,7 @@ using namespace std;
 
 // DP
 
-int editDistance(string s, string t)
+int editDistance3(string s, string t)
 {
     int m = s.size();
     int n = t.size();
@@ -15,16 +15,32 @@ int editDistance(string s, string t)
     }
 
     // Fill the 0th row with 0
-    for (int j = 0; j <= m; j++)
+    for (int j = 0; j <= n; j++)
     {
         ans[0][j] = 0;
     }
     // Fill the 0th row with 0
-    for (int i = 0; i <= n; i++)
+    for (int i = 0; i <= m; i++)
     {
         ans[i][0] = 0;
     }
     // Fill the remaining row with shortest Distances
+    for (int i = 1; i <= m; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (s[m - i] == t[n - j])
+                ans[i][j] = ans[i - 1][j - 1];
+            else
+            {
+                int a = 1 + ans[i - 1][j];
+                int b = 1 + ans[i][j - 1];
+                int c = 1 + ans[i - 1][j - 1];
+                ans[i][j] = min(a, min(b, c));
+            }
+        }
+    }
+    return ans[m][n];
 }
 
 // recursively + memoisation
@@ -76,4 +92,5 @@ int main()
     vector<vector<int>> ans(s.size() + 1, vector<int>(t.size() + 1, -1));
     cout << editDistance(s, t) << endl;
     cout << editDistance2(s, t, ans) << endl;
+    cout << editDistance3(s, t);
 }
