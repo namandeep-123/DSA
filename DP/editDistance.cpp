@@ -17,12 +17,12 @@ int editDistance3(string s, string t)
     // Fill the 0th row with 0
     for (int j = 0; j <= n; j++)
     {
-        ans[0][j] = 0;
+        ans[0][j] = j;
     }
     // Fill the 0th row with 0
     for (int i = 0; i <= m; i++)
     {
-        ans[i][0] = 0;
+        ans[i][0] = i;
     }
     // Fill the remaining row with shortest Distances
     for (int i = 1; i <= m; i++)
@@ -50,7 +50,7 @@ int editDistance2(string s, string t, vector<vector<int>> ans)
     int m = s.size();
     int n = t.size();
     if (s.size() == 0 || t.size() == 0)
-        return 0;
+        return max(s.size(), t.size());
     if (ans[m][n] != -1)
         return ans[m][n];
     if (s[0] == t[0])
@@ -60,8 +60,11 @@ int editDistance2(string s, string t, vector<vector<int>> ans)
     }
     else
     {
+        // insert
         int a = 1 + editDistance2(s.substr(1), t, ans);
+        // delete
         int b = 1 + editDistance2(s, t.substr(1), ans);
+        // replace
         int c = 1 + editDistance2(s.substr(1), t.substr(1), ans);
         ans[m][n] = min(a, min(b, c));
         return ans[m][n];
@@ -73,13 +76,16 @@ int editDistance2(string s, string t, vector<vector<int>> ans)
 int editDistance(string s, string t)
 {
     if (s.size() == 0 || t.size() == 0)
-        return 0;
+        return max(s.size(), t.size());
     if (s[0] == t[0])
         return editDistance(s.substr(1), t.substr(1));
     else
     {
+        // insert
         int a = 1 + editDistance(s.substr(1), t);
+        // delete
         int b = 1 + editDistance(s, t.substr(1));
+        // replace
         int c = 1 + editDistance(s.substr(1), t.substr(1));
         return min(a, min(b, c));
     }
