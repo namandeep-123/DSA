@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+// Kahn's Algorithm
 
 vector<int> topologicalSort(int V, vector<int> adj[])
 {

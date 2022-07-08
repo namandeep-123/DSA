@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+// Kahn's Algorithm
 bool CycleDetection(int V, vector<int> adj[])
 {
     vector<int> Indegree(V + 1, 0);
