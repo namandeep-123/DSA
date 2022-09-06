@@ -1,1 +1,2 @@
-input
+int n;
+    // cin >> n;
